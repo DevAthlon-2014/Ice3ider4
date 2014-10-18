@@ -81,7 +81,7 @@ public enum Effects {
         packetContainer.getFloat().write(5, offsetZ);
         packetContainer.getFloat().write(6, speed);
         packetContainer.getIntegers().write(0, amount);
-        broadcastPacket(packetContainer,location,20);
+        broadcastPacket(packetContainer,location,60);
     }
 
     /**

@@ -9,3 +9,14 @@ start:
     y: 4
     z: -774
     world: world
+end:
+  from:
+    x: -483.7
+    y: 4
+    z: -769
+    world: world
+  to:
+    x: -483.7
+    y: 4
+    z: -774
+    world: world

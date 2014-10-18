@@ -1,6 +1,7 @@
 package de.ice3ider4.listeners;
 
 import de.ice3ider4.effects.LineEffect;
+import de.ice3ider4.effects.LineTyp;
 import de.ice3ider4.main.Main;
 import de.ice3ider4.utils.Strings;
 import org.bukkit.ChatColor;
@@ -40,10 +41,15 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onMove(PlayerRealMoveEvent event){
         Player player = event.getPlayer();
-
         for(LineEffect lineEffect : Main.getEffectManager().getLineEffects()){
             if(lineEffect.checkPlayer(player)){
-                player.sendMessage("You walked over a line");
+                if(lineEffect.getLineTyp().equals(LineTyp.STARTLINE)){
+                    player.sendMessage("STARTLINE");
+                }
+                else if(lineEffect.getLineTyp().equals(LineTyp.ENDLINE)){
+                    player.sendMessage("ENDLINE");
+                }
+                break;
             }
         }
     }

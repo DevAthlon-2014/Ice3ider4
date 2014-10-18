@@ -19,16 +19,18 @@ public class LineEffect extends EffectSpawner {
     private Effects effect;
     private Location from;
     private Location to;
+    private LineTyp lineTyp;
 
-    public LineEffect(Effects effect, Location from, Location to) {
-        super(effect, 15L, from,to);
+    public LineEffect(LineTyp lineTyp, Effects effect, Location from, Location to) {
+        super(15L, from,to);
+        this.effect = effect;
+        this.lineTyp = lineTyp;
     }
 
     @Override
-    public void playEffect(Effects effect, Location from, Location to){
+    public void playEffect(Location from, Location to){
         this.from = from;
         this.to = to;
-        this.effect = effect;
         link = VectorUtil.createVector(from, to);
         lenght = (float) link.length();
         link.normalize();
@@ -54,8 +56,9 @@ public class LineEffect extends EffectSpawner {
             if(location.getWorld().getName() == to.getWorld().getName()){
                 if((location.getBlockX() >= from.getBlockX() && location.getBlockX() <= to.getBlockX()) || (location.getBlockX() <= from.getBlockX() && location.getBlockX() >= to.getBlockX())){
                     if((location.getBlockZ() >= from.getBlockZ() && location.getBlockZ() <= to.getBlockZ()) || (location.getBlockZ() <= from.getBlockZ() && location.getBlockZ() >= to.getBlockZ())){
-                        if((location.getBlockY() > to.getBlockY() && location.getBlockY() > from.getBlockY()) && (location.getBlockY() < (to.getBlockY() + 3) && location.getBlockY() < (from.getBlockY() + 3)))
-                        return true;
+                        if(location.getBlockY() >= to.getBlockY() && location.getBlockY() >= from.getBlockY() && location.getBlockY() <= (to.getBlockY() + 3) && location.getBlockY() <= (from.getBlockY() + 3)){
+                            return true;
+                        }
                     }
                 }
             }
@@ -66,6 +69,10 @@ public class LineEffect extends EffectSpawner {
 
     public Effects getEffect(){
         return this.effect;
+    }
+
+    public LineTyp getLineTyp(){
+        return this.lineTyp;
     }
 
 }

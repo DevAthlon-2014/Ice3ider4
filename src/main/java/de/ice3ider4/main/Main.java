@@ -3,7 +3,9 @@ package de.ice3ider4.main;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import de.ice3ider4.effects.EffectManager;
+import de.ice3ider4.effects.Effects;
 import de.ice3ider4.effects.LineEffect;
+import de.ice3ider4.effects.LineTyp;
 import de.ice3ider4.listeners.EventCaller;
 import de.ice3ider4.listeners.PlayerListener;
 import de.ice3ider4.listeners.WorldListener;
@@ -89,8 +91,15 @@ public class Main extends JavaPlugin {
         Location fromStart = loadLocation("start","from");
         Location toStart = loadLocation("start","to");
 
-        LineEffect lineEffect = new LineEffect(fromStart,toStart);
-        effectManager.addLineEffect(lineEffect);
+        LineEffect startLine = new LineEffect(LineTyp.STARTLINE,Effects.FLAME,fromStart,toStart);
+
+        Location fromEnd = loadLocation("end","from");
+        Location toEnd = loadLocation("end","to");
+
+        LineEffect endLine = new LineEffect(LineTyp.ENDLINE,Effects.RED_DUST,fromEnd,toEnd);
+
+        effectManager.addLineEffect(startLine);
+        effectManager.addLineEffect(endLine);
     }
 
     private Location loadLocation(String typ, String name){
