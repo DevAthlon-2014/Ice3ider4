@@ -40,8 +40,6 @@ public class TimeManager {
 
     /**
      * Removes a player if he really exists
-     * @see removeTimePlayer
-     * @see getTimePlayer
      *
      * @param player    The player that should be removed
      */
