@@ -2,10 +2,14 @@ package de.ice3ider4.main;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import de.ice3ider4.effects.LineEffect;
 import de.ice3ider4.listeners.PlayerListener;
 import de.ice3ider4.listeners.WorldListener;
 import de.ice3ider4.utils.LogHelper;
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -40,6 +44,8 @@ public class Main extends JavaPlugin {
 
         registerCommands();
         registerListeners();
+        disableMobs();
+        loadConfiguration();
     }
 
     @Override
@@ -65,6 +71,34 @@ public class Main extends JavaPlugin {
             pluginManager.registerEvents(listener, this);
         }
     }
+
+    private void disableMobs(){
+        for(World w : Bukkit.getWorlds()){
+            w.setDifficulty(Difficulty.PEACEFUL);
+            w.setTime(100L);
+            w.setGameRuleValue("doDaylightCycle","false");
+        }
+    }
+
+    private void loadConfiguration(){
+        saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
+        Location from = loadLocation("start","from");
+        Location to = loadLocation("start","to");
+        LineEffect lineEffect = new LineEffect(from,to);
+    }
+
+    private Location loadLocation(String typ, String name){
+            double x = getConfig().getDouble(typ + "." + name + ".x");
+            double y = getConfig().getDouble(typ + "." + name + ".y");
+            double z = getConfig().getDouble(typ + "." + name + ".z");
+            World w =  Bukkit.getWorld(getConfig().getString(typ + "." + name + ".world"));
+        return new Location(w,x,y,z);
+    }
+
+
+
+
 
     /**
      * Singleton instance

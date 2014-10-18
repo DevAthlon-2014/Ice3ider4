@@ -22,7 +22,7 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         event.setJoinMessage(Strings.PREFIX + ChatColor.GOLD +player.getName() + " joined the server!");
 
-        LineEffect lineEffect = new LineEffect(player.getLocation(), player.getLocation().clone().add(0,3,0));
+        //LineEffect lineEffect = new LineEffect(player.getLocation(), player.getLocation().clone().add(0,3,0));
     }
 
     @EventHandler
