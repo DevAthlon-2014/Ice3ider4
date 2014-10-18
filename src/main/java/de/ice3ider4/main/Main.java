@@ -117,10 +117,16 @@ public class Main extends JavaPlugin {
         Location fromEnd = loadLocation("end","from");
         Location toEnd = loadLocation("end","to");
 
-        LineEffect endLine = new LineEffect(LineTyp.ENDLINE,Effects.RED_DUST,fromEnd,toEnd);
+        LineEffect endLine = new LineEffect(LineTyp.ENDLINE,Effects.CLOUD,fromEnd,toEnd);
+
+        Location fromLaser1 = loadLocation("laser","from");
+        Location toLaser1= loadLocation("laser","to");
+
+        LineEffect laser1Line = new LineEffect(LineTyp.LASERLINE,Effects.RED_DUST,fromLaser1,toLaser1);
 
         effectManager.addLineEffect(startLine);
         effectManager.addLineEffect(endLine);
+        effectManager.addLineEffect(laser1Line);
     }
 
     /**

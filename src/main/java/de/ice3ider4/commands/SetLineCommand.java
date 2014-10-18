@@ -1,5 +1,7 @@
 package de.ice3ider4.commands;
 
+import de.ice3ider4.effects.LineEffect;
+import de.ice3ider4.effects.LineTyp;
 import de.ice3ider4.main.Main;
 import de.ice3ider4.utils.Strings;
 import org.bukkit.Location;
@@ -24,11 +26,11 @@ public class SetLineCommand implements CommandExecutor {
         }
         else{
             Player player = (Player)cs;
+            Location location = player.getLocation();
 
             if(args.length == 2){
-                saveLocation(player.getLocation().clone(),args[0],args[1]);
+                saveLocation(location.clone(),args[0].toLowerCase(),args[1].toLowerCase());
                 player.sendMessage(Strings.PREFIX + Strings.LINE_SET);
-
             }
             else{
                 player.sendMessage(Strings.PREFIX + Strings.SETLINE_ARGS);

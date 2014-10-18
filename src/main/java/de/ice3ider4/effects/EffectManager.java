@@ -31,4 +31,22 @@ public class EffectManager {
         return lineEffects;
     }
 
+    /**
+     * Gets a list of lines serached by the type
+     *
+     * @param lineTyp   The type to serach
+     * @return          HashMap with all the lines of the type
+     */
+    public HashSet<LineEffect> getLineEffectsByType(LineTyp lineTyp){
+        HashSet<LineEffect> retunList = new HashSet<LineEffect>();
+
+        for(LineEffect lineEffect : lineEffects){
+            if(lineEffect.getEffect().equals(lineTyp)){
+                retunList.add(lineEffect);
+            }
+        }
+
+        return retunList;
+    }
+
 }

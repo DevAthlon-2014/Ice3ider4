@@ -8,5 +8,6 @@ package de.ice3ider4.effects;
  */
 public enum LineTyp {
     STARTLINE,
-    ENDLINE;
+    ENDLINE,
+    LASERLINE;
 }

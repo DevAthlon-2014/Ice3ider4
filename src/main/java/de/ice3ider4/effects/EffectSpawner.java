@@ -56,8 +56,17 @@ public abstract class EffectSpawner {
         return this.to;
     }
 
+    public void setTo(Location to) {
+        this.to = to;
+    }
+
+    public void setFrom(Location from) {
+        this.from = from;
+    }
+
     /**
      * Disables the repeating task
+
      */
     public void disable(){
         Bukkit.getScheduler().cancelTask(schedulerID);
