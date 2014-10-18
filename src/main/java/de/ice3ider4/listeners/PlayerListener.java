@@ -1,5 +1,10 @@
 package de.ice3ider4.listeners;
 
+import de.ice3ider4.main.Main;
+import de.ice3ider4.utils.Effects;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -13,7 +18,15 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class PlayerListener implements Listener {
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
-        event.getPlayer().sendMessage("Test");
+    public void onJoin(final PlayerJoinEvent event){
+        Bukkit.getScheduler().runTaskLater(Main.getInstance(),new Runnable() {
+            @Override
+            public void run() {
+                Player player = event.getPlayer();
+                Location location = player.getLocation();
+
+                Effects.CLOUD.playEffect(location,2,2,2,2,40);
+            }
+        },4 * 20L);
     }
 }
