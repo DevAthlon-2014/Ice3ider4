@@ -11,7 +11,7 @@ import org.bukkit.util.Vector;
  */
 public class VectorUtil {
 
-    public Vector createVector(Location from, Location to){
+    public static Vector createVector(Location from, Location to){
         return to.toVector().subtract(from.toVector());
     }
 }

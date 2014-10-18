@@ -1,6 +1,5 @@
 package de.ice3ider4.listeners;
 
-import de.ice3ider4.effects.LineEffect;
 import de.ice3ider4.utils.Strings;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -21,8 +20,6 @@ public class PlayerListener implements Listener {
     public void onJoin(final PlayerJoinEvent event){
         Player player = event.getPlayer();
         event.setJoinMessage(Strings.PREFIX + ChatColor.GOLD +player.getName() + " joined the server!");
-
-        //LineEffect lineEffect = new LineEffect(player.getLocation(), player.getLocation().clone().add(0,3,0));
     }
 
     @EventHandler

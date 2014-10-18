@@ -12,28 +12,29 @@ import org.bukkit.util.Vector;
  */
 public class LineEffect extends EffectSpawner {
 
-    private int particles = 12;
+    private int particles = 50;
     private Vector link;
     private float lenght;
     private Effects effect = Effects.FLAME;
 
     public LineEffect(Location from, Location to) {
-        super(20L, from,to);
+        super(15L, from,to);
     }
 
     @Override
     public void playEffect(Location from, Location to){
-        VectorUtil vectorUtil = new VectorUtil();
-        link = vectorUtil.createVector(from, to);
+        link = VectorUtil.createVector(from, to);
         lenght = (float) link.length();
 
+    /*
         for(int i = 0;i<particles;i++){
             float ratio = (float) i * lenght / particles;
             Vector v = link.clone().multiply(ratio);
             from.add(v);
-            effect.playEffect(from,0.1F,0,0.1F,0,3);
+            effect.playEffect(from,0.1F,0,0.1F,0,1);
             from.subtract(v);
         }
+        */
 
     }
 
