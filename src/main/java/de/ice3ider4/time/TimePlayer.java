@@ -1,6 +1,11 @@
 package de.ice3ider4.time;
 
+import de.ice3ider4.main.Main;
+import de.ice3ider4.utils.Strings;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -16,10 +21,25 @@ public class TimePlayer {
     private UUID uuid;
     private long startTime;
     private long endTime = -1;
+    private long maxTime = 72000; //max Time should be 1 hour
+    private BukkitTask bukkitTask;
 
     public TimePlayer(Player player){
         uuid = player.getUniqueId();
         startTime = System.currentTimeMillis();
+        bukkitTask = Bukkit.getScheduler().runTaskLater(Main.getInstance(),new Runnable() {
+            @Override
+            public void run() {
+                TimeManager timeManager = Main.getTimeManager();
+                TimePlayer timePlayer = timeManager.getTimePlayer(uuid);
+                Bukkit.getPlayer(uuid).sendMessage(Strings.PREFIX + ChatColor.DARK_RED + "Your timer has been disabled!");
+                timeManager.removeTimePlayer(timePlayer);
+            }
+        },maxTime);
+    }
+
+    public void endTimer(){
+        bukkitTask.cancel();
     }
 
     public void setEndTime(long endTime){
@@ -37,13 +57,11 @@ public class TimePlayer {
         if (endTime == -1) {
             return "Error";
         }
+
         long runnedTime = endTime - startTime;
-        return  String.format("%02d:%02d:%02d",
-        TimeUnit.MILLISECONDS.toHours(runnedTime),
-        TimeUnit.MILLISECONDS.toMinutes(runnedTime) -
-        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(runnedTime)), // The change is in this line
-        TimeUnit.MILLISECONDS.toSeconds(runnedTime) -
-        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(runnedTime)));
+        return  String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(runnedTime),
+                TimeUnit.MILLISECONDS.toSeconds(runnedTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(runnedTime)));
     }
 
     public UUID getUuid(){

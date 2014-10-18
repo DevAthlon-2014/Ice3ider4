@@ -3,6 +3,7 @@ package de.ice3ider4.time;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
+import java.util.UUID;
 
 /**
  * User: Ice3ider4
@@ -22,6 +23,7 @@ public class TimeManager {
 
     public void removeTimePlayer(TimePlayer timePlayer){
         if(timePlayers.contains(timePlayer)){
+            timePlayer.endTimer();
             timePlayers.remove(timePlayer);
         }
     }
@@ -46,4 +48,13 @@ public class TimeManager {
         return null;
     }
 
+    public TimePlayer getTimePlayer(UUID uuid){
+        for(TimePlayer timePlayer : timePlayers){
+            if(timePlayer.getUuid().equals(uuid)){
+                return timePlayer;
+            }
+        }
+
+        return null;
+    }
 }
