@@ -2,6 +2,7 @@ package de.ice3ider4.main;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import de.ice3ider4.commands.SetLineCommand;
 import de.ice3ider4.commands.SpawnCommand;
 import de.ice3ider4.effects.EffectManager;
 import de.ice3ider4.effects.Effects;
@@ -53,6 +54,7 @@ public class Main extends JavaPlugin {
         listeners.add(new WorldListener());
 
         commands.put("setspawn",new SpawnCommand());
+        commands.put("setline", new SetLineCommand());
 
         registerCommands();
         registerListeners();
@@ -128,7 +130,7 @@ public class Main extends JavaPlugin {
      * @param name  The name of the location
      * @return      The loaded locaiton
      */
-    private Location loadLocation(String typ, String name){
+    public Location loadLocation(String typ, String name){
         double x = getConfig().getDouble(typ + "." + name + ".x");
         double y = getConfig().getDouble(typ + "." + name + ".y");
         double z = getConfig().getDouble(typ + "." + name + ".z");
@@ -136,6 +138,21 @@ public class Main extends JavaPlugin {
         return new Location(w,x,y,z);
     }
 
+    /**
+     * Loads the location from the file
+     *
+     * @param name  The name of the location
+     * @return      The loaded locaiton
+     */
+    public Location loadLocation(String name){
+        double x = getConfig().getDouble(name + ".x");
+        double y = getConfig().getDouble(name + ".y");
+        double z = getConfig().getDouble(name + ".z");
+        World w =  Bukkit.getWorld(getConfig().getString(name + ".world"));
+        float yaw = (float) getConfig().getDouble(name + ".yaw");
+        float pitch = (float) getConfig().getDouble(name + ".pitch");
+        return new Location(w,x,y,z,yaw,pitch);
+    }
 
     /**
      * Singleton instance

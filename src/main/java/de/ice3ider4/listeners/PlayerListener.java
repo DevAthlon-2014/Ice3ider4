@@ -36,6 +36,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onJoin(final PlayerJoinEvent event){
         Player player = event.getPlayer();
+        player.teleport(Main.getInstance().loadLocation("spawn"));
         event.setJoinMessage(Strings.PREFIX + Strings.PLAYER_JOIN.replace("%player%",player.getName()));
     }
 

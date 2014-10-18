@@ -19,5 +19,6 @@ public class Strings {
     public static final String NOT_STARTED = ChatColor.DARK_RED + "You haven't started your timer!";
     public static final String NO_PLAYER = ChatColor.DARK_RED + "You must be a player to use this command.";
     public static final String SPAWN_SET = ChatColor.GREEN + "You have set the spawnpint.";
+    public static final String LINE_SET = ChatColor.GREEN + "You have set the linepoint.";
 
 }
