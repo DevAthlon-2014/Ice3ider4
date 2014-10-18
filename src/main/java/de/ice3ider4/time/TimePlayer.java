@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.*;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -23,10 +24,30 @@ public class TimePlayer {
     private long endTime = -1;
     private long maxTime = 72000; //max Time should be 1 hour
     private BukkitTask bukkitTask;
+    private int taskID;
+    private Scoreboard scoreboard;
 
     public TimePlayer(Player player){
         uuid = player.getUniqueId();
         startTime = System.currentTimeMillis();
+
+        ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
+        scoreboard = scoreboardManager.getNewScoreboard();
+        Objective objective = scoreboard.registerNewObjective("test", "dummy");
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        objective.setDisplayName(ChatColor.RED + "Timer");
+        Score score = objective.getScore(ChatColor.GREEN + "Time:");
+        score.setScore(getAlreadyRunnedTime());
+        player.setScoreboard(scoreboard);
+
+        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(),new Runnable() {
+            @Override
+            public void run() {
+                updateScoreboard();
+            }
+        }, 0L,20L);
+
+
         bukkitTask = Bukkit.getScheduler().runTaskLater(Main.getInstance(),new Runnable() {
             @Override
             public void run() {
@@ -40,10 +61,24 @@ public class TimePlayer {
 
     public void endTimer(){
         bukkitTask.cancel();
+        Bukkit.getScheduler().cancelTask(taskID);
+        Bukkit.getPlayer(uuid).setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
     }
 
     public void setEndTime(long endTime){
         this.endTime = endTime;
+    }
+
+    private int getAlreadyRunnedTime(){
+        long runnedTime = System.currentTimeMillis() - startTime;
+        return (int) TimeUnit.MILLISECONDS.toSeconds(runnedTime);
+    }
+
+    private void updateScoreboard(){
+        Objective objective = scoreboard.getObjective(DisplaySlot.SIDEBAR);
+        Score score = objective.getScore(ChatColor.GREEN + "Time:");
+        score.setScore(getAlreadyRunnedTime());
+        Bukkit.getPlayer(uuid).setScoreboard(scoreboard);
     }
 
     public long getRunnedTime(){

@@ -28,7 +28,11 @@ public class TimeManager {
         }
     }
 
-    public boolean isPlayerAlreadyRunning(Player player){
+    public void removePlayer(Player player){
+        removeTimePlayer(getTimePlayer(player));
+    }
+
+    public boolean isPlayerRunning(Player player){
         for(TimePlayer timePlayer : timePlayers){
             if(timePlayer.getUuid().equals(player.getUniqueId())){
                 return true;

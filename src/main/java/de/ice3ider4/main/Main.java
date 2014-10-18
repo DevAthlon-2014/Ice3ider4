@@ -47,7 +47,7 @@ public class Main extends JavaPlugin {
         timeManager = new TimeManager();
 
         listeners.add(new EventCaller());
-        listeners.add(new PlayerListener());
+        listeners.add(new PlayerListener(timeManager));
         listeners.add(new WorldListener());
 
         registerCommands();

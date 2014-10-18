@@ -7,9 +7,14 @@ import de.ice3ider4.time.TimeManager;
 import de.ice3ider4.time.TimePlayer;
 import de.ice3ider4.utils.Strings;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -22,6 +27,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class PlayerListener implements Listener {
 
+    private TimeManager timeManager;
+
+    public PlayerListener(TimeManager timeManager){
+        this.timeManager = timeManager;
+    }
+
     @EventHandler
     public void onJoin(final PlayerJoinEvent event){
         Player player = event.getPlayer();
@@ -32,12 +43,18 @@ public class PlayerListener implements Listener {
     public void onQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
         event.setQuitMessage(Strings.PREFIX + ChatColor.GOLD + player.getName() + " left the server!");
+        if(timeManager.isPlayerRunning(player)){
+            timeManager.removePlayer(player);
+        }
     }
 
     @EventHandler
     public void onKick(PlayerKickEvent event){
         Player player = event.getPlayer();
         event.setLeaveMessage(Strings.PREFIX + ChatColor.GOLD + player.getName() + " left the server!");
+        if(timeManager.isPlayerRunning(player)){
+            timeManager.removePlayer(player);
+        }
     }
 
     @EventHandler
@@ -46,19 +63,18 @@ public class PlayerListener implements Listener {
         for(LineEffect lineEffect : Main.getEffectManager().getLineEffects()){
             if(lineEffect.checkPlayer(player)){
 
-                TimeManager timeManager = Main.getTimeManager();
-
                 if(lineEffect.getLineTyp().equals(LineTyp.STARTLINE)){
-                   if(timeManager.isPlayerAlreadyRunning(player)){
+                   if(timeManager.isPlayerRunning(player)){
                        player.sendMessage(Strings.PREFIX + ChatColor.DARK_RED + "You are already running!");
                    }
                     else{
                        player.sendMessage(Strings.PREFIX + ChatColor.GREEN + "Timer started!");
+                       player.setGameMode(GameMode.SURVIVAL);
                        timeManager.addTimePlayer(new TimePlayer(player));
                    }
                 }
                 else if(lineEffect.getLineTyp().equals(LineTyp.ENDLINE)){
-                    if(!(timeManager.isPlayerAlreadyRunning(player))){
+                    if(!(timeManager.isPlayerRunning(player))){
                         player.sendMessage(Strings.PREFIX + ChatColor.DARK_RED + "You haven't started your timer!");
                     }
                     else{
@@ -68,8 +84,37 @@ public class PlayerListener implements Listener {
                         timeManager.removeTimePlayer(timePlayer);
                     }
                 }
+
                 break;
             }
         }
     }
+
+    @EventHandler
+    public void onBreak(BlockBreakEvent event){
+        Player player = event.getPlayer();
+        if(timeManager.isPlayerRunning(player)){
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlace(BlockPlaceEvent event){
+        Player player = event.getPlayer();
+        if(timeManager.isPlayerRunning(player)){
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent event){
+        Entity entity = event.getEntity();
+        if(entity instanceof Player){
+            Player player = (Player) entity;
+            if(timeManager.isPlayerRunning(player)){
+                event.setCancelled(true);
+            }
+        }
+    }
+
 }
