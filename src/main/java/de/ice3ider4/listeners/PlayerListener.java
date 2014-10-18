@@ -36,13 +36,13 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onJoin(final PlayerJoinEvent event){
         Player player = event.getPlayer();
-        event.setJoinMessage(Strings.PREFIX + ChatColor.GOLD +player.getName() + " joined the server!");
+        event.setJoinMessage(Strings.PREFIX + Strings.PLAYER_JOIN.replace("%player%",player.getName()));
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
-        event.setQuitMessage(Strings.PREFIX + ChatColor.GOLD + player.getName() + " left the server!");
+        event.setQuitMessage(Strings.PREFIX + Strings.PLAYER_LEAVE.replace("%player%",player.getName()));
         if(timeManager.isPlayerRunning(player)){
             timeManager.removePlayer(player);
         }
@@ -51,7 +51,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onKick(PlayerKickEvent event){
         Player player = event.getPlayer();
-        event.setLeaveMessage(Strings.PREFIX + ChatColor.GOLD + player.getName() + " left the server!");
+        event.setLeaveMessage(Strings.PREFIX + Strings.PLAYER_LEAVE.replace("%player%",player.getName()));
         if(timeManager.isPlayerRunning(player)){
             timeManager.removePlayer(player);
         }
@@ -65,22 +65,22 @@ public class PlayerListener implements Listener {
 
                 if(lineEffect.getLineTyp().equals(LineTyp.STARTLINE)){
                    if(timeManager.isPlayerRunning(player)){
-                       player.sendMessage(Strings.PREFIX + ChatColor.DARK_RED + "You are already running!");
+                       player.sendMessage(Strings.PREFIX + Strings.ALREADY_RUNNING);
                    }
                     else{
-                       player.sendMessage(Strings.PREFIX + ChatColor.GREEN + "Timer started!");
+                       player.sendMessage(Strings.PREFIX + Strings.TIMER_STARTED);
                        player.setGameMode(GameMode.SURVIVAL);
                        timeManager.addTimePlayer(new TimePlayer(player));
                    }
                 }
                 else if(lineEffect.getLineTyp().equals(LineTyp.ENDLINE)){
                     if(!(timeManager.isPlayerRunning(player))){
-                        player.sendMessage(Strings.PREFIX + ChatColor.DARK_RED + "You haven't started your timer!");
+                        player.sendMessage(Strings.PREFIX + Strings.NOT_STARTED);
                     }
                     else{
                         TimePlayer timePlayer = timeManager.getTimePlayer(player);
                         timePlayer.setEndTime(System.currentTimeMillis());
-                        player.sendMessage(Strings.PREFIX + ChatColor.GOLD + "Your time was: " + timePlayer.getRunnedTimeString());
+                        player.sendMessage(Strings.PREFIX + Strings.TIMER_ENDED.replace("%time%",timePlayer.getRunnedTimeString()));
                         timeManager.removeTimePlayer(timePlayer);
                     }
                 }

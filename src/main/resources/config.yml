@@ -12,11 +12,11 @@ start:
 end:
   from:
     x: -503.7
-    y: 4
-    z: -773
+    y: 9
+    z: -773.7
     world: world
   to:
     x: -503.7
-    y: 4
-    z: -768
+    y: 9
+    z: -768.7
     world: world

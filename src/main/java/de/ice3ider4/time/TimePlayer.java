@@ -53,7 +53,7 @@ public class TimePlayer {
             public void run() {
                 TimeManager timeManager = Main.getTimeManager();
                 TimePlayer timePlayer = timeManager.getTimePlayer(uuid);
-                Bukkit.getPlayer(uuid).sendMessage(Strings.PREFIX + ChatColor.DARK_RED + "Your timer has been disabled!");
+                Bukkit.getPlayer(uuid).sendMessage(Strings.PREFIX + Strings.TIMER_DISABLED);
                 timeManager.removeTimePlayer(timePlayer);
             }
         },maxTime);
