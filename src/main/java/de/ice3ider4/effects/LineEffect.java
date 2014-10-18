@@ -26,7 +26,6 @@ public class LineEffect extends EffectSpawner {
         link = VectorUtil.createVector(from, to);
         lenght = (float) link.length();
 
-    /*
         for(int i = 0;i<particles;i++){
             float ratio = (float) i * lenght / particles;
             Vector v = link.clone().multiply(ratio);
@@ -34,7 +33,6 @@ public class LineEffect extends EffectSpawner {
             effect.playEffect(from,0.1F,0,0.1F,0,1);
             from.subtract(v);
         }
-        */
 
     }
 
