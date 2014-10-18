@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
@@ -40,8 +39,12 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onMove(PlayerRealMoveEvent event){
-        for(LineEffect lineEffect : Main.getEffectManager().getLineEffects()){
+        Player player = event.getPlayer();
 
+        for(LineEffect lineEffect : Main.getEffectManager().getLineEffects()){
+            if(lineEffect.checkPlayer(player)){
+                player.sendMessage("You walked over a line");
+            }
         }
     }
 }

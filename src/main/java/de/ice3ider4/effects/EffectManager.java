@@ -22,4 +22,5 @@ public class EffectManager {
     public HashSet<LineEffect> getLineEffects(){
         return lineEffects;
     }
+
 }

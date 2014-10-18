@@ -17,8 +17,10 @@ public abstract class EffectSpawner {
     private Location from;
     private Location to;
     private int schedulerID;
+    private Effects effect;
 
-    public EffectSpawner(long ticks, final Location from, final Location to){
+    public EffectSpawner(final Effects effect, long ticks, final Location from, final Location to){
+        this.effect = effect;
         this.ticks = ticks;
         this.from = LocationUtil.centerLocation(from);
         this.to = LocationUtil.centerLocation(to);
@@ -26,12 +28,12 @@ public abstract class EffectSpawner {
         schedulerID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
             @Override
             public void run() {
-                playEffect(from, to);
+                playEffect(effect, from, to);
             }
         }, 20L, ticks);
     }
 
-    public abstract void playEffect(Location from, Location to);
+    public abstract void playEffect(Effects effect, Location from, Location to);
 
     public long getTicks(){
         return this.ticks;

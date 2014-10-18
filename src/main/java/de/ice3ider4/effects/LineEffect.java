@@ -16,14 +16,19 @@ public class LineEffect extends EffectSpawner {
     private int particles = 50;
     private Vector link;
     private float lenght;
-    private Effects effect = Effects.FLAME;
+    private Effects effect;
+    private Location from;
+    private Location to;
 
-    public LineEffect(Location from, Location to) {
-        super(15L, from,to);
+    public LineEffect(Effects effect, Location from, Location to) {
+        super(effect, 15L, from,to);
     }
 
     @Override
-    public void playEffect(Location from, Location to){
+    public void playEffect(Effects effect, Location from, Location to){
+        this.from = from;
+        this.to = to;
+        this.effect = effect;
         link = VectorUtil.createVector(from, to);
         lenght = (float) link.length();
         link.normalize();
@@ -39,9 +44,28 @@ public class LineEffect extends EffectSpawner {
     }
 
     public boolean checkPlayer(Player player){
-        boolean check = false;
         Location location = player.getLocation();
-      // n x >= min.x && x <= max.x && y >= min.y && y <= max.y && z >= min.z && z <= max.z;
+
+        if(to == null || from == null){
+            return false;
+        }
+
+        if(to.getWorld().getName() == from.getWorld().getName()){
+            if(location.getWorld().getName() == to.getWorld().getName()){
+                if((location.getBlockX() >= from.getBlockX() && location.getBlockX() <= to.getBlockX()) || (location.getBlockX() <= from.getBlockX() && location.getBlockX() >= to.getBlockX())){
+                    if((location.getBlockZ() >= from.getBlockZ() && location.getBlockZ() <= to.getBlockZ()) || (location.getBlockZ() <= from.getBlockZ() && location.getBlockZ() >= to.getBlockZ())){
+                        if((location.getBlockY() > to.getBlockY() && location.getBlockY() > from.getBlockY()) && (location.getBlockY() < (to.getBlockY() + 3) && location.getBlockY() < (from.getBlockY() + 3)))
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public Effects getEffect(){
+        return this.effect;
     }
 
 }

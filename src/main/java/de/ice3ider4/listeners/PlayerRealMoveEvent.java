@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerEvent;
 public class PlayerRealMoveEvent extends PlayerEvent implements Cancellable {
 
     private boolean cancelled;
-    private HandlerList handlers = new HandlerList();
+    private static HandlerList handlers = new HandlerList();
     private Location from;
     private Location to;
 
@@ -46,6 +46,11 @@ public class PlayerRealMoveEvent extends PlayerEvent implements Cancellable {
 
     @Override
     public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList()
+    {
         return handlers;
     }
 }

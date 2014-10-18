@@ -4,6 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import de.ice3ider4.effects.EffectManager;
 import de.ice3ider4.effects.LineEffect;
+import de.ice3ider4.listeners.EventCaller;
 import de.ice3ider4.listeners.PlayerListener;
 import de.ice3ider4.listeners.WorldListener;
 import de.ice3ider4.utils.LogHelper;
@@ -34,10 +35,12 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable(){
         instance = this;
+        effectManager = new EffectManager();
         protocolManager = ProtocolLibrary.getProtocolManager();
         logHelper = new LogHelper(getLogger());
         System.out.println("Devathlon Plugin has been enabled");
 
+        listeners.add(new EventCaller());
         listeners.add(new PlayerListener());
         listeners.add(new WorldListener());
 
