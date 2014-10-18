@@ -1,13 +1,12 @@
 package de.ice3ider4.listeners;
 
-import de.ice3ider4.main.Main;
-import de.ice3ider4.utils.Effects;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import de.ice3ider4.utils.Strings;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
  * User: Ice3ider4
@@ -19,14 +18,13 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onJoin(final PlayerJoinEvent event){
-        Bukkit.getScheduler().runTaskLater(Main.getInstance(),new Runnable() {
-            @Override
-            public void run() {
-                Player player = event.getPlayer();
-                Location location = player.getLocation();
+        Player player = event.getPlayer();
+        event.setJoinMessage(Strings.PREFIX + ChatColor.GOLD +player.getName() + " joined the server!");
+    }
 
-                Effects.CLOUD.playEffect(location,2,2,2,2,40);
-            }
-        },4 * 20L);
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event){
+        Player player = event.getPlayer();
+        event.setQuitMessage(Strings.PREFIX + ChatColor.GOLD + player.getName() + " left the server!");
     }
 }
