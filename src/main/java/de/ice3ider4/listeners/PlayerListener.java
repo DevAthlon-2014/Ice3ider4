@@ -1,11 +1,15 @@
 package de.ice3ider4.listeners;
 
+import de.ice3ider4.effects.LineEffect;
+import de.ice3ider4.main.Main;
 import de.ice3ider4.utils.Strings;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
@@ -26,5 +30,18 @@ public class PlayerListener implements Listener {
     public void onQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
         event.setQuitMessage(Strings.PREFIX + ChatColor.GOLD + player.getName() + " left the server!");
+    }
+
+    @EventHandler
+    public void onKick(PlayerKickEvent event){
+        Player player = event.getPlayer();
+        event.setLeaveMessage(Strings.PREFIX + ChatColor.GOLD + player.getName() + " left the server!");
+    }
+
+    @EventHandler
+    public void onMove(PlayerRealMoveEvent event){
+        for(LineEffect lineEffect : Main.getEffectManager().getLineEffects()){
+
+        }
     }
 }

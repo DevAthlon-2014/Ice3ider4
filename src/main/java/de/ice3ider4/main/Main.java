@@ -2,6 +2,7 @@ package de.ice3ider4.main;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import de.ice3ider4.effects.EffectManager;
 import de.ice3ider4.effects.LineEffect;
 import de.ice3ider4.listeners.PlayerListener;
 import de.ice3ider4.listeners.WorldListener;
@@ -28,6 +29,7 @@ public class Main extends JavaPlugin {
     private static Main instance;
     private static ProtocolManager protocolManager;
     private static LogHelper logHelper;
+    private static EffectManager effectManager;
 
     @Override
     public void onEnable(){
@@ -80,13 +82,12 @@ public class Main extends JavaPlugin {
     private void loadConfiguration(){
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
-        Location from = loadLocation("start","from");
-        Location to = loadLocation("start","to");
 
-        from.getBlock().setType(Material.GOLD_ORE);
-        to.getBlock().setType(Material.GOLD_ORE);
+        Location fromStart = loadLocation("start","from");
+        Location toStart = loadLocation("start","to");
 
-        LineEffect lineEffect = new LineEffect(from,to);
+        LineEffect lineEffect = new LineEffect(fromStart,toStart);
+        effectManager.addLineEffect(lineEffect);
     }
 
     private Location loadLocation(String typ, String name){
@@ -96,9 +97,6 @@ public class Main extends JavaPlugin {
         World w =  Bukkit.getWorld(getConfig().getString(typ + "." + name + ".world"));
         return new Location(w,x,y,z);
     }
-
-
-
 
 
     /**
@@ -125,4 +123,6 @@ public class Main extends JavaPlugin {
     public static LogHelper getLogHelper(){
         return logHelper;
     }
+
+    public static EffectManager getEffectManager(){ return effectManager;}
 }
