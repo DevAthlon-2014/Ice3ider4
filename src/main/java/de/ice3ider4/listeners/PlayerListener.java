@@ -94,6 +94,12 @@ public class PlayerListener implements Listener {
                         timeManager.removeTimePlayer(timePlayer);
                     }
                 }
+                else if(lineEffect.getLineTyp().equals(LineTyp.LASERLINE)){
+                    if(timeManager.isPlayerRunning(player)){
+                        player.teleport(Main.getInstance().loadLocation("respawn"));
+                        player.sendMessage(Strings.PREFIX + Strings.LASER);
+                    }
+                }
 
                 break;
             }

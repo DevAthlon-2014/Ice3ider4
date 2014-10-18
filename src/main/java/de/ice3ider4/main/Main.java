@@ -111,22 +111,29 @@ public class Main extends JavaPlugin {
 
         Location fromStart = loadLocation("start","from");
         Location toStart = loadLocation("start","to");
-
         LineEffect startLine = new LineEffect(LineTyp.STARTLINE,Effects.FLAME,fromStart,toStart);
 
         Location fromEnd = loadLocation("end","from");
         Location toEnd = loadLocation("end","to");
-
         LineEffect endLine = new LineEffect(LineTyp.ENDLINE,Effects.CLOUD,fromEnd,toEnd);
 
-        Location fromLaser1 = loadLocation("laser","from");
-        Location toLaser1= loadLocation("laser","to");
-
+        Location fromLaser1 = loadLocation("laser1","from");
+        Location toLaser1 = loadLocation("laser1","to");
         LineEffect laser1Line = new LineEffect(LineTyp.LASERLINE,Effects.RED_DUST,fromLaser1,toLaser1);
+
+        Location fromLaser2 = loadLocation("laser2","from");
+        Location toLaser2 = loadLocation("laser2","to");
+        LineEffect laser2Line = new LineEffect(LineTyp.LASERLINE,Effects.RED_DUST,fromLaser2,toLaser2);
+
+        Location fromLaser3 = loadLocation("laser3","from");
+        Location toLaser3 = loadLocation("laser3","to");
+        LineEffect laser3Line = new LineEffect(LineTyp.LASERLINE,Effects.RED_DUST,fromLaser3,toLaser3);
 
         effectManager.addLineEffect(startLine);
         effectManager.addLineEffect(endLine);
         effectManager.addLineEffect(laser1Line);
+        effectManager.addLineEffect(laser2Line);
+        effectManager.addLineEffect(laser3Line);
     }
 
     /**

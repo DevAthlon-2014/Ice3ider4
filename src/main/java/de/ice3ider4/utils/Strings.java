@@ -21,5 +21,6 @@ public class Strings {
     public static final String SPAWN_SET = ChatColor.GREEN + "You have set the spawnpint.";
     public static final String LINE_SET = ChatColor.GREEN + "You have set the linepoint. " + ChatColor.DARK_RED + "You have to reload the server!";
     public static final String SETLINE_ARGS = ChatColor.DARK_RED + "Please use /setline <start/end> <from/to>.";
+    public static final String LASER = ChatColor.DARK_RED + "You shouldn't walk into red dust";
 
 }
