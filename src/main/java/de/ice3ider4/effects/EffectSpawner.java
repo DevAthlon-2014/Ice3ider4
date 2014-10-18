@@ -13,29 +13,35 @@ import org.bukkit.Location;
 public abstract class EffectSpawner {
 
     private long ticks;
-    private Location location;
+    private Location from;
+    private Location to;
     private int schedulerID;
 
-    public EffectSpawner(long ticks, final Location location){
+    public EffectSpawner(long ticks, final Location from, final Location to){
         this.ticks = ticks;
-        this.location = location.clone().add(0.5,0,0.5);
+        this.from = from.clone().add(0.5,0,0.5);
+        this.to = to.clone().add(0.5,0,0.5);
 
         schedulerID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
             @Override
             public void run() {
-                playEffect(location);
+                playEffect(from,to);
             }
         },20L,ticks);
     }
 
-    public abstract void playEffect(Location loc);
+    public abstract void playEffect(Location from, Location to);
 
     public long getTicks(){
         return this.ticks;
     }
 
-    public Location getLocation(){
-        return this.location;
+    public Location getFrom(){
+        return this.from;
+    }
+
+    public Location getTo(){
+        return this.to;
     }
 
     public void disable(){
