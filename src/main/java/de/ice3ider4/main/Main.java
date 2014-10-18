@@ -52,7 +52,7 @@ public class Main extends JavaPlugin {
 
         registerCommands();
         registerListeners();
-        disableMobs();
+        prepareWorlds();
         loadConfiguration();
     }
 
@@ -80,7 +80,10 @@ public class Main extends JavaPlugin {
         }
     }
 
-    private void disableMobs(){
+    /**
+     * Prepares the worlds to be clean
+     */
+    private void prepareWorlds(){
         for(World w : Bukkit.getWorlds()){
             w.setDifficulty(Difficulty.PEACEFUL);
             w.setTime(100L);
@@ -88,6 +91,9 @@ public class Main extends JavaPlugin {
         }
     }
 
+    /**
+     * Converts the locations to line effects
+     */
     private void loadConfiguration(){
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
@@ -106,6 +112,13 @@ public class Main extends JavaPlugin {
         effectManager.addLineEffect(endLine);
     }
 
+    /**
+     * Loads the location from the file
+     *
+     * @param typ   The type of the location
+     * @param name  The name of the location
+     * @return      The loaded locaiton
+     */
     private Location loadLocation(String typ, String name){
         double x = getConfig().getDouble(typ + "." + name + ".x");
         double y = getConfig().getDouble(typ + "." + name + ".y");
@@ -140,7 +153,15 @@ public class Main extends JavaPlugin {
         return logHelper;
     }
 
+    /**
+     * Gets the EffectManager
+     * @return the effectManager
+     */
     public static EffectManager getEffectManager(){ return effectManager;}
 
+    /**
+     * Gets the TimeManager
+     * @return the timeManager
+     */
     public static TimeManager getTimeManager(){return  timeManager;}
 }
