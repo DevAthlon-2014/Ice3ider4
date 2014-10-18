@@ -1,0 +1,7 @@
+name: Devathlon
+author: Ice3ider4
+main: de.ice3ider4.main.Main
+version: 1.0
+description: This is my contribution to the first Devathlon of the GommeHD.net server
+website: http://www.github.com/ice3ider4
+depend: [ProtocolLib]
