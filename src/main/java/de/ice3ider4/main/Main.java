@@ -2,6 +2,7 @@ package de.ice3ider4.main;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import de.ice3ider4.commands.SpawnCommand;
 import de.ice3ider4.effects.EffectManager;
 import de.ice3ider4.effects.Effects;
 import de.ice3ider4.effects.LineEffect;
@@ -10,6 +11,7 @@ import de.ice3ider4.listeners.EventCaller;
 import de.ice3ider4.listeners.PlayerListener;
 import de.ice3ider4.listeners.WorldListener;
 import de.ice3ider4.time.TimeManager;
+import de.ice3ider4.time.TimePlayer;
 import de.ice3ider4.utils.LogHelper;
 import org.bukkit.*;
 import org.bukkit.command.CommandExecutor;
@@ -50,6 +52,8 @@ public class Main extends JavaPlugin {
         listeners.add(new PlayerListener(timeManager));
         listeners.add(new WorldListener());
 
+        commands.put("setspawn",new SpawnCommand());
+
         registerCommands();
         registerListeners();
         prepareWorlds();
@@ -58,6 +62,11 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable(){
+
+        for(TimePlayer timePlayer : timeManager.getTimePlayers()){
+            timeManager.removeTimePlayer(timePlayer);
+        }
+
         System.out.println("Devathlon Plugin has been disabled");
     }
 

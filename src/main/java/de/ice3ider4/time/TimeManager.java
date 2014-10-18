@@ -94,4 +94,13 @@ public class TimeManager {
 
         return null;
     }
+
+    /**
+     * Gets all the saved TimePlayers
+     *
+     * @return      HashSet of all the TimePlayers
+     */
+    public HashSet<TimePlayer> getTimePlayers(){
+        return this.timePlayers;
+    }
 }

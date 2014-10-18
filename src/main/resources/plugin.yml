@@ -5,3 +5,7 @@ version: 1.0
 description: This is my contribution to the first Devathlon of the GommeHD.net server
 website: http://www.github.com/ice3ider4
 depend: [ProtocolLib]
+commands:
+  setspawn:
+    usage: /<command>
+    description: Sets the spawnpoint
