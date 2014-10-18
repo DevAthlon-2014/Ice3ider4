@@ -9,3 +9,6 @@ commands:
   setspawn:
     usage: /<command>
     description: Sets the spawnpoint
+  setline:
+    usage: /<command>
+    description: Sets the line

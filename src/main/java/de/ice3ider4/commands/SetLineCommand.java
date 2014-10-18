@@ -24,28 +24,34 @@ public class SetLineCommand implements CommandExecutor {
         }
         else{
             Player player = (Player)cs;
-            saveLocation(player.getLocation().clone(),"spawn");
-            player.sendMessage(Strings.PREFIX + Strings.LINE_SET);
+
+            if(args.length == 2){
+                saveLocation(player.getLocation().clone(),args[0],args[1]);
+                player.sendMessage(Strings.PREFIX + Strings.LINE_SET);
+
+            }
+            else{
+                player.sendMessage(Strings.PREFIX + Strings.SETLINE_ARGS);
+            }
         }
 
         return true;
     }
 
     /**
-     * Saves the location to the config file
+     * Loads the location from the file
      *
-     * @param loc   The location that should be saved
-     * @param typ   The name under which the location should be saved
+     * @param typ   The type of the location
+     * @param name  The name of the location
+     * @return      The loaded locaiton
      */
-    private void saveLocation(Location loc, String typ){
+    public void saveLocation(Location loc, String typ, String name){
         Main main = Main.getInstance();
         FileConfiguration config = main.getConfig();
-        config.set(typ + ".x",loc.getX());
-        config.set(typ + ".y",loc.getY());
-        config.set(typ + ".z",loc.getZ());
-        config.set(typ + ".yaw",loc.getYaw());
-        config.set(typ + ".pitch",loc.getPitch());
-        config.set(typ + ".world",loc.getWorld().getName());
+        config.set(typ + "." + name + ".x",loc.getX());
+        config.set(typ + "." + name +  ".y",loc.getY());
+        config.set(typ + "." + name +  ".z",loc.getZ());
+        config.set(typ + "." + name +  ".world",loc.getWorld().getName());
         main.saveConfig();
     }
 }
