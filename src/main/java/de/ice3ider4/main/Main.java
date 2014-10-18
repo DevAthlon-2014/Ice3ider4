@@ -9,6 +9,7 @@ import de.ice3ider4.effects.LineTyp;
 import de.ice3ider4.listeners.EventCaller;
 import de.ice3ider4.listeners.PlayerListener;
 import de.ice3ider4.listeners.WorldListener;
+import de.ice3ider4.time.TimeManager;
 import de.ice3ider4.utils.LogHelper;
 import org.bukkit.*;
 import org.bukkit.command.CommandExecutor;
@@ -33,14 +34,17 @@ public class Main extends JavaPlugin {
     private static ProtocolManager protocolManager;
     private static LogHelper logHelper;
     private static EffectManager effectManager;
+    private static TimeManager timeManager;
 
     @Override
     public void onEnable(){
+        System.out.println("Devathlon Plugin has been enabled");
+
         instance = this;
         effectManager = new EffectManager();
         protocolManager = ProtocolLibrary.getProtocolManager();
         logHelper = new LogHelper(getLogger());
-        System.out.println("Devathlon Plugin has been enabled");
+        timeManager = new TimeManager();
 
         listeners.add(new EventCaller());
         listeners.add(new PlayerListener());
@@ -137,4 +141,6 @@ public class Main extends JavaPlugin {
     }
 
     public static EffectManager getEffectManager(){ return effectManager;}
+
+    public static TimeManager getTimeManager(){return  timeManager;}
 }
