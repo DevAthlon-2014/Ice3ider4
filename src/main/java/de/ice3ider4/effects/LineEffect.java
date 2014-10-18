@@ -21,12 +21,26 @@ public class LineEffect extends EffectSpawner {
     private Location to;
     private LineTyp lineTyp;
 
+    /**
+     * LineEffect has a starting and an ending point to spawn particles on this line
+     *
+     * @param lineTyp   Type of the line (Starting or Ending)
+     * @param effect    Particle that should be spawned on this line
+     * @param from      Where the line starts
+     * @param to        Where the line ends
+     */
     public LineEffect(LineTyp lineTyp, Effects effect, Location from, Location to) {
         super(15L, from,to);
         this.effect = effect;
         this.lineTyp = lineTyp;
     }
 
+    /**
+     * Actually plays the effect
+     *
+     * @param from      Starting point of the line
+     * @param to        Ending point of the line
+     */
     @Override
     public void playEffect(Location from, Location to){
         this.from = from;
@@ -45,6 +59,12 @@ public class LineEffect extends EffectSpawner {
 
     }
 
+    /**
+     * Checks if the player walks through the line
+     *
+     * @param player    Player that should be checked
+     * @return          True if the player walks through the line and false if not
+     */
     public boolean checkPlayer(Player player){
         Location location = player.getLocation();
 

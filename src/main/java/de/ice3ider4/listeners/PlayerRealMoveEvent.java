@@ -19,6 +19,13 @@ public class PlayerRealMoveEvent extends PlayerEvent implements Cancellable {
     private Location from;
     private Location to;
 
+    /**
+     * This event gets called if the player really moves on the X or Z axis
+     *
+     * @param player    The Player that moved
+     * @param from      Location from where the player moved
+     * @param to        Location to which the player moved
+     */
     public PlayerRealMoveEvent(Player player, Location from, Location to) {
         super(player);
 

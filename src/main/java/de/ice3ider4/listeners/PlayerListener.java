@@ -60,27 +60,36 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onMove(PlayerRealMoveEvent event){
         Player player = event.getPlayer();
+
         for(LineEffect lineEffect : Main.getEffectManager().getLineEffects()){
+
+            //Checks if the player walked over a line
             if(lineEffect.checkPlayer(player)){
 
                 if(lineEffect.getLineTyp().equals(LineTyp.STARTLINE)){
+                   //Checks if the player is already running
                    if(timeManager.isPlayerRunning(player)){
                        player.sendMessage(Strings.PREFIX + Strings.ALREADY_RUNNING);
                    }
                     else{
                        player.sendMessage(Strings.PREFIX + Strings.TIMER_STARTED);
                        player.setGameMode(GameMode.SURVIVAL);
+                       //Start a new Timer
                        timeManager.addTimePlayer(new TimePlayer(player));
                    }
                 }
                 else if(lineEffect.getLineTyp().equals(LineTyp.ENDLINE)){
+                    //Checks if the player is already running
                     if(!(timeManager.isPlayerRunning(player))){
                         player.sendMessage(Strings.PREFIX + Strings.NOT_STARTED);
                     }
                     else{
                         TimePlayer timePlayer = timeManager.getTimePlayer(player);
+
+                        //Sets the ending time and prints the time needed to walk from the start to the end
                         timePlayer.setEndTime(System.currentTimeMillis());
                         player.sendMessage(Strings.PREFIX + Strings.TIMER_ENDED.replace("%time%",timePlayer.getRunnedTimeString()));
+
                         timeManager.removeTimePlayer(timePlayer);
                     }
                 }

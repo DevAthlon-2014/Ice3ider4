@@ -16,6 +16,7 @@ public class EventCaller implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent event){
+        //Checks if the player really moved on the X or Z axis
         if ((event.getFrom().getBlockX() != event.getTo().getBlockX()) || (event.getFrom().getBlockY() != event.getTo().getBlockY()) || (event.getFrom().getBlockZ() != event.getTo().getBlockZ()))
         {
             PlayerRealMoveEvent call = new PlayerRealMoveEvent(event.getPlayer(), event.getFrom(), event.getTo());

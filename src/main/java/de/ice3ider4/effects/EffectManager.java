@@ -15,10 +15,18 @@ public class EffectManager {
 
     }
 
+    /**
+     * Adds a line effect to the effect manager
+     * @param effect    Effect that should be added
+     */
     public void addLineEffect(LineEffect effect){
         lineEffects.add(effect);
     }
 
+    /**
+     * Gets all the currently saved effects
+     * @return          All saved effects
+     */
     public HashSet<LineEffect> getLineEffects(){
         return lineEffects;
     }
