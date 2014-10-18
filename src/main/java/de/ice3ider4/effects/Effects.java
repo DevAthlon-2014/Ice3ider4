@@ -1,4 +1,4 @@
-package de.ice3ider4.utils;
+package de.ice3ider4.effects;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
@@ -24,7 +24,6 @@ public enum Effects {
     LAVA("lava"),
     SLIME("slime"),
     HEART("heart"),
-
     HUGE_EXPLOSION("hugeexplosion"),
     LARGE_EXPLODE("largeexplode"),
     FIREWORKS_SPARK("fireworksSpark"),

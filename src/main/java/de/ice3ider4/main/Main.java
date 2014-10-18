@@ -3,6 +3,7 @@ package de.ice3ider4.main;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import de.ice3ider4.listeners.PlayerListener;
+import de.ice3ider4.listeners.WorldListener;
 import de.ice3ider4.utils.LogHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
@@ -35,6 +36,7 @@ public class Main extends JavaPlugin {
         System.out.println("Devathlon Plugin has been enabled");
 
         listeners.add(new PlayerListener());
+        listeners.add(new WorldListener());
 
         registerCommands();
         registerListeners();
